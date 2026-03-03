@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Đăng nhập | Mượn phòng học online</title>
+
+  <link rel="stylesheet" href="./css/login.css" />
+
+</head>
+
+<body>
+  <div class="card">
+    <div class="top">
+      <div class="mark">MTP</div>
+      <div>
+        <h1>Đăng nhập</h1>
+        <p>Hệ thống mượn phòng học online</p>
+      </div>
+    </div>
+
+    <form id="loginForm" novalidate>
+      <label for="username">Email / Mã SV / Tên đăng nhập</label>
+      <input id="username" name="username" type="text"
+             placeholder="vd: 22123456 hoặc admin@school.edu.vn" required>
+
+      <label for="password">Mật khẩu</label>
+      <div class="control">
+        <input id="password" name="password" type="password"
+               placeholder="Nhập mật khẩu" required>
+        <button class="toggle" id="togglePwd" type="button">Hiện</button>
+      </div>
+
+      <div class="row">
+        <label class="remember">
+          <input id="remember" type="checkbox">
+          Nhớ đăng nhập
+        </label>
+        <a class="link" href="#" id="forgotLink">Quên mật khẩu?</a>
+      </div>
+
+      <button class="btn" id="btnLogin" type="submit">Đăng nhập</button>
+      <div class="msg" id="msgBox"></div>
+    </form>
+  </div>
+
+    <script defer src="./script/login.js"></script>
+</body>
+</html>

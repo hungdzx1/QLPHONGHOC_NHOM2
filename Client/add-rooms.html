@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Thêm Phòng Mới</title>
+    <link rel="stylesheet" href="./css/rooms.css" />
+</head>
+
+<body>
+  <header class="header">
+    <div class="brand">
+      <div class="mark">A</div>
+      <div class="name">
+      </div>
+    </div>
+
+    <div class="profile" aria-label="Tài khoản">
+      <div class="avatar" title="Avatar">TP</div>
+      <div class="meta">
+        <b>Admin</b>
+        <span></span>
+      </div>
+      <div class="caret" aria-hidden="true"></div>
+
+      <div class="dropdown" role="menu">
+        <button class="logout" id="btnLogout" type="button">
+          <span class="tag">Đăng Xuất</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="nav-title">Menu</div>
+      <nav class="nav" id="nav">
+        <a href="/admin.html"><span class="icon">🏠</span>Home</a>
+        <a href="/rooms.html" class="active"><span class="icon">➕</span>Quản lí phòng</a>
+        <a href="#"><span class="icon">👤</span>Quản lí tài khoản</a>
+        <a href="#"><span class="icon">✅</span>Duyệt phòng</a>
+      </nav>
+    </aside>
+
+    <main class="main">
+
+    <div class="edit-rooms">
+        <h3>Thêm Phòng Mới</h3>
+        <form id="editRoomForm">
+            <label for="roomName">Tên phòng:</label>
+            <input type="text" id="roomName" name="roomName" required>
+    
+            <label for="roomType">Loại phòng:</label>
+            <select id="roomType" name="roomType" required>
+                <option value="Phòng Học">Phòng học</option>
+                <option value="Phòng Máy">Phòng máy</option>
+                <option value="Phòng Thí Nghiệm">Phòng thí nghiệm</option>
+            </select>
+    
+            <label for="capacity">Sức chứa:</label>
+            <input type="number" id="capacity" name="capacity" min="1" required>
+    
+            <label for="status">Trạng thái:</label>
+            <select id="status" name="status" required>
+                <option value="1">Đang sử dụng</option>
+                <option value="0">Bảo trì</option>
+            </select>
+    
+            <button type="submit" class="btn-save" id="btnAddRoom">Tạo Mới</button>
+        </form>
+    </div>
+
+    </main>
+  </div>
+    <script defer src="./script/add-rooms.js"></script>
+</body>
+</html>

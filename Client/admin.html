@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="./css/admin.css" />
+</head>
+
+<body>
+  <header class="header">
+    <div class="brand">
+      <div class="mark">A</div>
+      <div class="name">
+        <b>Admin Panel</b>
+        <span>Quản trị hệ thống</span>
+      </div>
+    </div>
+
+    <div class="profile" aria-label="Tài khoản">
+      <div class="avatar" title="Avatar">TP</div>
+      <div class="meta">
+        <b>Admin</b>
+        <span></span>
+      </div>
+      <div class="caret" aria-hidden="true"></div>
+
+      <div class="dropdown" role="menu">
+        <button class="logout" id="btnLogout" type="button">
+          <span class="tag">Đăng Xuất</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="nav-title">Menu</div>
+      <nav class="nav" id="nav">
+        <a href="/admin.html" class="active" data-page="home"><span class="icon">🏠</span>Home</a>
+        <a href="/rooms.html" data-page="add-room"><span class="icon">➕</span>Quản lí phòng</a>
+        <a href="#" data-page="accounts"><span class="icon">👤</span>Quản lí tài khoản</a>
+        <a href="#" data-page="approve"><span class="icon">✅</span>Duyệt phòng</a>
+      </nav>
+    </aside>
+
+    <main class="main">
+      <section class="card" id="content">
+        <h1>Home</h1>
+        <p>Chọn mục ở thanh bên trái để xem nội dung (demo).</p>
+
+        <div class="grid">
+          <div class="mini">
+            <b>Tổng phòng</b>
+            <span>—</span>
+          </div>
+          <div class="mini">
+            <b>Chờ duyệt</b>
+            <span>—</span>
+          </div>
+          <div class="mini">
+            <b>Tài khoản</b>
+            <span>—</span>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+    <script defer src="./script/admin.js"></script>
+</body>
+</html>
