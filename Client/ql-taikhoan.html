@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Rooms</title>
-    <link rel="stylesheet" href="./css/rooms.css" />
+  <title>Quản lý tài khoản</title>
+    <link rel="stylesheet" href="./css/ql-taikhoan.css" />
 </head>
 
 <body>
@@ -36,8 +36,8 @@
       <div class="nav-title">Menu</div>
       <nav class="nav" id="nav">
         <a href="/admin.html"><span class="icon">🏠</span>Home</a>
-        <a href="/rooms.html" class="active"><span class="icon">➕</span>Quản lí phòng</a>
-        <a href="/ql-taikhoan.html"><span class="icon">👤</span>Quản lí tài khoản</a>
+        <a href="/rooms.html"><span class="icon">➕</span>Quản lí phòng</a>
+        <a href="/ql-taikhoan.html" class="active"><span class="icon">👤</span>Quản lí tài khoản</a>
         <a href="#"><span class="icon">✅</span>Duyệt phòng</a>
       </nav>
     </aside>
@@ -45,37 +45,43 @@
     <main class="main">
       <div class="searching">
         <form action="" method="GET">
-            <input type="text" name="name" id="searchInput" placeholder="Tìm kiếm phòng...(VD: A7-102)">
+            <input type="text" name="username" id="searchInput" placeholder="Tìm kiếm tài khoản theo username...(VD: admin)">
             <button type="submit" id="btnSearch">Tìm kiếm</button>
         </form>
       </div>
-
-      <div class="box-rooms">
-
-        <div class="rooms">
-          <h3>Phòng A7-102</h3>
-          <p>Loại phòng: Phòng học</p>
-          <p>Sức chứa: 40 người</p>
-          <p class="status ok">Trạng thái: Đang sử dụng</p>
-          <button class="btn-edit">Sửa</button>
-          <button class="btn-delete">Xóa</button>
-        </div>
+    
+      <div class="table-container">
+            <h2>Danh sách tài khoản hiện có</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Hành động</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                </tbody>
+            </table>
 
       </div>
 
       <div class="edit-rooms">
-
+        
       </div>
 
       <div class="add-rooms">
-        <button class="btnall" id="btnAddRoom">
+        <button class="btnall" id="btnAddAccount">
             <span class="icon">➕</span>
-            Thêm phòng mới
+            Thêm tài khoản mới
         </button>
       </div>
 
     </main>
   </div>
-    <script defer src="./script/rooms.js"></script>
+    <script defer src="./script/ql-taikhoan.js"></script>
 </body>
 </html>

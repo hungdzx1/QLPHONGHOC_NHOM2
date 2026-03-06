@@ -161,7 +161,7 @@ body {
     justify-content: space-between;
 }
 
-.dropdown button:not(:disabled):hover {
+.dropdown button:hover {
     background: rgba(255, 255, 255, .06);
 }
 
@@ -358,7 +358,7 @@ body {
     cursor: pointer;
 }
 
-.main > .searching > form > button:not(:disabled):hover{
+.main > .searching > form > button:hover{
     background: rgba(255, 255, 255, .06);
     border-color: rgba(255, 255, 255, .06);
 }
@@ -394,27 +394,9 @@ body {
     margin-bottom: 10px;
 }
 
-/* .box-rooms > .rooms > button:not(:disabled):hover{
+.box-rooms > .rooms > button:hover{
     background: #dedede;
     border-color: rgba(255, 255, 255, .06);
-} */
-
-.box-rooms > .rooms > .btn-edit{
-    background: var(--brand);
-    color: var(--text);
-}
-
-.box-rooms > .rooms > .btn-edit:not(:disabled):hover{
-    opacity: 0.9;
-}
-
-.box-rooms > .rooms > .btn-delete{
-    background: var(--danger);
-    color: var(--text);
-}
-
-.box-rooms > .rooms > .btn-delete:not(:disabled):hover{
-    opacity: 0.9;
 }
 
 .main > .add-rooms{
@@ -433,12 +415,10 @@ body {
     cursor: pointer;
 }
 
-.btnall:not(:disabled):hover{
+.btnall:hover{
     background: #dedede;
     border-color: rgba(255, 255, 255, .06);
 }
-
-
 
 
 /*====================EDIT-ROOMS====================*/
@@ -483,15 +463,10 @@ body {
     margin:  10px 0;
 }
 
-.main .edit-rooms > form > .btn-save{
-    background: var(--brand);
-    color: var(--text);
+.main .edit-rooms > form > button:hover{
+    background: #dedede;
+    border-color: rgba(255, 255, 255, .06);
 }
-
-.main .edit-rooms > form > .btn-save:not(:disabled):hover{
-    opacity: 0.9;
-}
-
 
 .main .edit-rooms > form > select{
     display: flex;
@@ -501,162 +476,61 @@ body {
     border: none;
 }
 
-/*====================HOME==========================*/
 
-.main > .box-rooms > .rooms > .btn-choose{
-    background: var(--brand);
-    color: var(--text);
-}
-
-.main > .box-rooms > .rooms > .btn-choose:not(:disabled):hover{
-    opacity: 0.9;
-}
-
-.main > .box-rooms > .rooms > .btn-choose:disabled{
-    background: var(--muted);
-    color: #fff;
-    cursor: not-allowed;
-}
-
-/*====================CHOSE-ROOMS====================*/
-
-.main .date-choose{
+/* Khung bảng */
+.table-container {
     width: 90%;
-    margin:  30px auto;
-    display: flex;
-    justify-content: center;
-    /* background-color: #6ea8fe; */
+    background: rgba(15, 27, 51, .65);
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    margin: 30px auto;
 }
 
-.main .date-choose > form{
-    display: flex;
-    gap: 10px;
-    padding: 10px;
-}
-
-.main .date-choose > form > label{
-    font-weight: 600;
-    color: var(--text);
-}
-
-.main .date-choose > form > input{
-    height: 30px;
-    padding: 5px 10px;
-    border: none;
-    border-radius: 5px;
-}
-
-
-.status.ok{
-    color: #4ade80;
-    font-weight: 600;
-}
-
-.status.error{
-    color: #ef4444;
-    font-weight: 600;
-}
-
-/*===================MODAL=====================*/
-/* Overlay nền mờ */
-.overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
+/* Bảng */
+table {
     width: 100%;
-    height: 100%;
-
-    backdrop-filter: blur(5px); 
-    background: rgba(0, 0, 0, 0.4); 
-
-    z-index: 999;
+    border-collapse: collapse;
+    overflow: hidden;
+    border-radius: 10px;
 }
 
-/* Modal */
-.modal {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-
-    background: #0f1c2e;
-    padding: 30px;
-    width: 400px;
-    border-radius: 12px;
-
-    z-index: 1000;
-    box-shadow: 0 0 25px rgba(0,0,0,0.5);
+/* Header */
+thead {
+    background: #4f46e5;
+    color: white;
 }
 
-
-.modal-content h2 {
-    margin-bottom: 15px;
-    text-align: center;
+th {
+    padding: 14px;
+    text-align: left;
+    font-weight: 600;
 }
 
-.modal-buttons {
-    margin-top: 20px;
-    display: flex;
-    justify-content: space-between;
+/* Dòng */
+td {
+    padding: 12px;
+    border-bottom: 1px solid #eee;
 }
 
-.modal-buttons button {
-    padding: 8px 15px;
+/* Button */
+.btn {
+    padding: 6px 12px;
     border: none;
     border-radius: 6px;
     cursor: pointer;
+    font-size: 13px;
+    color: white;
 }
 
-.modal-buttons > .confirmBtn {
-    background: var(--brand);
-    color: var(--text);
+.edit {
+    background: #22c55e;
 }
 
-.modal-buttons > .confirmBtn:hover{
-    opacity: 0.9;;
+.delete {
+    background: #ef4444;
 }
 
-.modal-buttons > .closeModal{
-    background: var(--danger);
-    color: var(--text);
-}
-
-.modal-buttons > .closeModal:hover{
-    opacity: 0.9;
-}
-
-/* Ẩn mặc định */
-.hidden {
-    display: none;
-}
-
-.modal-content p{
-    /* text-align: center; */
-    font-size: 20px;
-    color: var(--text);
-    font-weight: 600;
-}
-
-.input-inf{
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-top: 20px;
-}
-
-.input-inf label{
-    font-size: 14px;
-    color: var(--text);
-    font-weight: 600;
-}
-
-.input-inf input{
-    height: 40px;
-    padding: 5px 10px;
-    border: none;
-    border-radius: 5px;
-}
-
-.input-inf input:focus{
-    outline: 2px solid var(--brand);
+.btn:hover {
+    opacity: 0.8;
 }

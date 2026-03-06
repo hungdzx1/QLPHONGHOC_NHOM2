@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Thêm Phòng Mới</title>
+    <link rel="stylesheet" href="./css/rooms.css" />
+</head>
+
+<body>
+  <header class="header">
+    <div class="brand">
+      <div class="mark">A</div>
+      <div class="name">
+      </div>
+    </div>
+
+    <div class="profile" aria-label="Tài khoản">
+      <div class="avatar" title="Avatar">TP</div>
+      <div class="meta">
+        <b>Admin</b>
+        <span></span>
+      </div>
+      <div class="caret" aria-hidden="true"></div>
+
+      <div class="dropdown" role="menu">
+        <button class="logout" id="btnLogout" type="button">
+          <span class="tag">Đăng Xuất</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="nav-title">Menu</div>
+      <nav class="nav" id="nav">
+        <a href="/admin.html"><span class="icon">🏠</span>Home</a>
+        <a href="/rooms.html"><span class="icon">➕</span>Quản lí phòng</a>
+        <a href="/ql-taikhoan.html" class="active"><span class="icon">👤</span>Quản lí tài khoản</a>
+        <a href="#"><span class="icon">✅</span>Duyệt phòng</a>
+      </nav>
+    </aside>
+
+    <main class="main">
+
+    <div class="edit-rooms">
+        <h3>Thêm Tài Khoản Mới</h3>
+        <form id="editRoomForm">
+            <label for="username">username: </label>
+            <input type="text" id="username" name="username" required  placeholder="VD: admin">
+
+            <label for="password">password: </label>
+            <input type="text" id="password" name="password" required placeholder="Mật khẩu phải có ít nhất 8 ký tự">
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required placeholder="VD: admin@gmail.com">
+
+            <label for="name">Tên:</label>
+            <input type="text" id="name" name="name" required placeholder="VD: Nguyễn Văn A">
+    
+            <label for="role">ROLE: </label>
+            <select id="role" name="role" required>
+                <option value="USER">USER</option>
+                <option value="ADMIN">ADMIN</option>
+            </select>
+    
+            <button type="submit" class="btn-save" id="btnAddAccount">Tạo Mới</button>
+        </form>
+    </div>
+
+    </main>
+  </div>
+    <script defer src="./script/add-acounnt.js"></script>
+</body>
+</html>

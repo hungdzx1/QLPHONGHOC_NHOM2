@@ -50,6 +50,14 @@ const GetRoomByName = async (name) => {
   return rows;
 };
 
+const GetIdRoomByName = async (name) => {
+  const { rows } = await pool.query(
+    `SELECT id FROM rooms WHERE room_name = $1`,
+    [name]
+  );
+  return rows[0]?.id;
+};
+
 // ================= ACCOUNT =================
 
 const checkAccount = async (username, password) => {
@@ -76,17 +84,17 @@ const getFullAcc = async () => {
 
 const getUserByUS = async (username) => {
   const { rows } = await pool.query(
-    "SELECT username FROM account WHERE username = $1",
+    "SELECT * FROM account WHERE username ILIKE '%' || $1 || '%'",
     [username]
   );
   return rows;
 };
 
-const CreateAcc = async (usr, pass, name, role) => {
+const CreateAcc = async ( username, password, email, fullname, role) => {
   await pool.query(
-    `INSERT INTO account (username, password, fullname, role)
-     VALUES ($1, $2, $3, $4)`,
-    [usr, pass, name, role]
+    `INSERT INTO account (username, password,  email, fullname, role)
+     VALUES ($1, $2, $3, $4, $5)`,
+    [username, password, email, fullname, role]
   );
 };
 
@@ -97,14 +105,15 @@ const DeleteAccById = async (id) => {
   );
 };
 
-const updateAccoutById = async (id, pass, role, name) => {
+const updateAccoutById = async (id, password, email, name, role) => {
   await pool.query(
     `UPDATE account
      SET password = $1,
-         role = $2,
-         fullname = $3
-     WHERE id = $4`,
-    [pass, role, name, id]
+         email = $2,
+         fullname = $3,
+         role = $4
+     WHERE id = $5`,
+    [password, email, name, role, id]
   );
 };
 
@@ -127,24 +136,95 @@ const CheckTimeBookings = async (id, start, end) => {
           start_at < $2
           AND end_at > $3
          )`,
-    [id, end, start] // chú ý thứ tự để check overlap chuẩn
+    [id, end, start] 
   );
 
   return rows[0] || null;
 };
 
-const Bookings = async (userId, roomId, startTime, endTime) => {
+const Bookings = async (userId, roomId, ca_hoc, date, purpose) => {
   await pool.query(
     `INSERT INTO bookings 
-     (user_id, room_id, start_at, end_at, status)
-     VALUES ($1, $2, $3, $4, 'PENDING')`,
-    [userId, roomId, startTime, endTime]
+     (user_id, room_id, ca_hoc, status, date, li_do)
+     VALUES ($1, $2, $3, 'PENDING', $4, $5)`,
+    [userId, roomId, ca_hoc, date, purpose]
   );
 };
 
+/*================== TOTAL ROWS =================*/
+const getTotalRooms = async () => {
+  const { rows } = await pool.query("SELECT COUNT(*) FROM rooms");
+  return parseInt(rows[0].count, 10);
+};
+
+const getTotalAccounts = async () => {
+  const { rows } = await pool.query("SELECT COUNT(*) FROM account");
+  return parseInt(rows[0].count, 10);
+};
+
+const getTotalBookings = async () => {
+  const { rows } = await pool.query("SELECT COUNT(*) FROM bookings");
+  return parseInt(rows[0].count, 10);
+}
+
+/*================== GET STATUS =================*/
+
+const getStatus1 = async (id, date) => {
+  const { rows } = await pool.query(
+    `SELECT * FROM bookings 
+     WHERE status = 'APPROVED'
+     AND room_id = $1
+     AND date = $2
+     AND ca_hoc = '1'`,
+    [id, date]
+  );
+
+  return rows.length > 0 ? "1" : "0";
+}
+
+const getStatus2 = async (id, date) => {
+  const { rows } = await pool.query(
+    `SELECT * FROM bookings 
+     WHERE status = 'APPROVED'
+     AND room_id = $1
+     AND date = $2
+     AND ca_hoc = '2'`,
+    [id, date]
+  );
+
+  return rows.length > 0 ? "1" : "0";
+}
+
+const getStatus3 = async (id, date) => {
+  const { rows } = await pool.query(
+    `SELECT * FROM bookings 
+     WHERE status = 'APPROVED'
+     AND room_id = $1
+     AND date = $2
+     AND ca_hoc = '3'`,
+    [id, date]
+  );
+
+  return rows.length > 0 ? "1" : "0";
+}
+
+const getStatus4 = async (id, date) => {
+  const { rows } = await pool.query(
+    `SELECT * FROM bookings 
+     WHERE status = 'APPROVED'
+     AND room_id = $1
+     AND date = $2
+     AND ca_hoc = '4'`,
+    [id, date]
+  );
+
+  return rows.length > 0 ? "1" : "0";
+}
+/*================== EXPORTS =================*/
+
 module.exports = {
-  getAllRooms,
-  creatNewRooms,
+  getAllRooms, getStatus1, getStatus2, getStatus3, getStatus4,
+  creatNewRooms, GetIdRoomByName,
   checkAccount,
   getUserByID,
   getFullAcc,
@@ -159,4 +239,7 @@ module.exports = {
   CheckBookingRoom,
   CheckTimeBookings,
   Bookings,
+  getTotalRooms,
+  getTotalAccounts,
+  getTotalBookings,
 };

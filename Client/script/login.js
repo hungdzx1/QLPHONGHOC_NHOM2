@@ -57,6 +57,7 @@ document.addEventListener("DOMContentLoaded", () => {
       // Gửi yêu cầu đăng nhập tới API
       const res = await fetch("http://localhost:8081/api/login", {
         method: "POST",
+        credentials: "include",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, password })
       });
@@ -72,8 +73,9 @@ document.addEventListener("DOMContentLoaded", () => {
       // Nếu đăng nhập thành công, lấy role từ API trả về
       const role = data.role || "USER"; // Lấy role từ response
 
-      // Lưu thông tin vào session
+
       sessionStorage.setItem("mp_role", role); // Lưu role vào sessionStorage
+
 
       // Lưu thông tin username nếu người dùng chọn "remember me"
       if (rememberEl.checked) {
@@ -85,8 +87,8 @@ document.addEventListener("DOMContentLoaded", () => {
       showMsg("ok", "Đăng nhập thành công! Đang chuyển trang...");
 
       setTimeout(() => {
-        if (role === "ADMIN") window.location.href = "/admin.html"; // Chuyển đến trang admin nếu là admin
-        else window.location.href = "/home.html"; // Chuyển đến trang người dùng
+        if (role === "ADMIN") window.location.href = "/admin.html"; 
+        else window.location.href = "/home.html"; 
       }, 500);
 
     } catch (err) {

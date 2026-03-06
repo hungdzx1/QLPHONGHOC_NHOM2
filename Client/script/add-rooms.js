@@ -28,6 +28,7 @@ document.getElementById("btnAddRoom").addEventListener("click", async function (
         }
 
             alert("Tạo phòng thành công!");
+            window.location.href = "rooms.html"
         } catch (error) {
             console.error('Lỗi khi tạo phòng:', error);
             alert("Lỗi khi tạo phòng: " + error.message);

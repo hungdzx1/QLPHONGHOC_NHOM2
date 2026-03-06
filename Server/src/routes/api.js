@@ -1,14 +1,14 @@
 const express = require("express");
 const {
   getAdmin, getUpdateR,
-  postNewRooms,
-  postLogin,
-  AdQLTK,
-  Register,
+  postNewRooms, getTotalRows, 
+  postLogin, getUpdateAcc,
+  AdQLTK, ShowRooms,
+  Register, getStatus,
   UpdateR,
   DeleteR,
   DeleteAcc,
-  UpdateAccout, ReqRooms, BookingRooms, Searching
+  UpdateAccout, ReqRooms, BookingRooms, Searching, SearchingAccount
 } = require("../controllers/APIcontrollers");
 
 const {
@@ -36,17 +36,27 @@ const RestAPIs = (app) => {
 
   router.delete("/admin/delete-room/:idr", DeleteR); 
 
-  router.get("/ql-taikhoan", AdQLTK); //Hiển thị toàn bộ tài khoản
+  router.get("/admin/choose-rooms", ShowRooms); //Lấy thông tin phòng trước khi mượn
 
-  router.post("/register", Register); //tạo mới tài khoản (user and admin)
+  router.get("/admin/ql-taikhoan", AdQLTK); //Hiển thị toàn bộ tài khoản
 
-  router.put("/update-account/:ida", UpdateAccout);
+  router.post("/admin/register", Register); //tạo mới tài khoản (user and admin)
 
-  router.delete("/delete-acc/:ida", DeleteAcc); //xóa tài khoản theo id chọn
+  router.get("/admin/update-account/:ida", getUpdateAcc); //Lấy thông tin tài khoản trước khi update
+
+  router.put("/admin/update-account/:ida", UpdateAccout); 
+
+  router.get("/admin/searching-account", SearchingAccount); //Tìm kiếm tài khoản theo tên
+
+  router.delete("/admin/delete-acc/:ida", DeleteAcc); //xóa tài khoản theo id chọn
 
   router.get("/req-rooms/:idr", ReqRooms); //Lấy thông tin phòng trước khi mượn
 
-  router.post("/bookings/:idr", BookingRooms);
+  router.post("/bookings", BookingRooms);
+
+  router.get("/get-total-rows", getTotalRows);
+
+  router.post("/get-status", getStatus); 
 
   return app.use('/api/', router);
 };

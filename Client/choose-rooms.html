@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard</title>
+    <link rel="stylesheet" href="./css/rooms.css" />
+</head>
+
+<body>
+  <header class="header">
+    <div class="brand">
+      <div class="mark">U</div>
+      <div class="name">
+        <!-- <b>User Panel</b> -->
+        <span>Dashboard</span>
+      </div>
+    </div>
+
+    <div class="profile" aria-label="Tài khoản">
+      <div class="avatar" title="Avatar">TP</div>
+      <div class="meta">
+        <b>User</b>
+        <span></span>
+      </div>
+      <div class="caret" aria-hidden="true"></div>
+
+      <div class="dropdown" role="menu">
+        <button class="logout" id="btnLogout" type="button">
+          <span class="tag">Đăng Xuất</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="nav-title">Menu</div>
+      <nav class="nav" id="nav">
+        <a href="/home.html"><span class="icon">🏠</span>Trang chủ</a>
+        <a href="/history-rooms.html"><span class="icon">✅</span>Lịch sử</a>
+      </nav>
+    </aside>
+
+    <main class="main">
+
+        <div class="date-choose">
+            <form id="myForm">
+                <label>Chọn ngày:</label>
+                <input type="date" id="date" name="date">
+                <button type="submit" class="choose-date">Chọn</button>
+            </form>
+        </div>
+    
+        <div class="box-rooms">
+    
+            <div class="rooms">
+                <h3>Phòng A7-102</h3>
+                <p>Loại phòng: Phòng học</p>
+                <p>Ca: 1 (6h45-9h30)</p>
+                <p class="status ok" id="status">Trạng thái: Trống</p>
+                <button class="btn-choose" id="btn-choose">Chọn</button>
+            </div>
+
+            <div class="rooms">
+                <h3>Phòng A7-102</h3>
+                <p>Loại phòng: Phòng học</p>
+                <p>Ca: 2 (9h30-12h15)</p>
+                <p class="status error" id="status">Trạng thái: Hết</p>
+                <button class="btn-choose">Chọn</button>
+            </div>
+    
+        </div>
+    </main>
+
+  </div>
+
+    <div id="overlay" class="overlay hidden"></div>
+
+    <div id="bookingModal" class="modal hidden">
+      
+    </div>
+
+    <script defer src="./script/choose-room.js"></script>
+</body>
+</html>

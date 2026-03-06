@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", async function () {
               <h3>${room.room_name}</h3>
               <p>Loại phòng: ${room.room_type}</p>
               <p>Sức chứa: ${room.so_luong} người</p>
-              <p>Trạng thái: ${room.is_available ? "Đang sử dụng" : "Bảo trì"} </p>
+              <p class="status ${room.is_available ? 'ok' : 'error'}">Trạng thái: ${room.is_available ? "Đang sử dụng" : "Bảo trì"} </p>
               <button class="btn-edit" onclick="editRoom(${room.id})">Sửa</button>
               <button class="btn-delete" onclick="deleteRoom(${room.id})">Xóa</button>
             `;
@@ -47,12 +47,11 @@ document.addEventListener("DOMContentLoaded", async function () {
 
                     // console.log(encodeURIComponent(name));
 
-                    if (!res.ok) {
-                        alert("Tìm kiếm thất bại: " + (data.message || "Lỗi server"));
-                        return;
-                    }
-
                     const data = await res.json();
+
+                    if (!res.ok) {
+                        throw new Error(data.message);
+                    }
 
                     // console.log("DATA NHẬN ĐƯỢC:", data); 
 
@@ -70,7 +69,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                       <h3>${room.room_name}</h3>
                       <p>Loại phòng: ${room.room_type}</p>
                       <p>Sức chứa: ${room.so_luong} người</p>
-                      <p>Trạng thái: ${room.is_available ? "Đang sử dụng" : "Bảo trì"} </p>
+                      <p class="status ${room.is_available ? 'ok' : 'error'}">Trạng thái: ${room.is_available ? "Đang sử dụng" : "Bảo trì"} </p>
                       <button class="btn-edit" onclick="editRoom(${room.id})">Sửa</button>
                       <button class="btn-delete" onclick="deleteRoom(${room.id})">Xóa</button>
                     `;
@@ -86,7 +85,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                 }
             } catch (error) {
                 console.error('Lỗi khi tìm kiếm phòng:', error);
-                alert("Lỗi khi tìm kiếm phòng. Vui lòng thử lại sau.");
+                alert(error.message);
             }
         });
     }

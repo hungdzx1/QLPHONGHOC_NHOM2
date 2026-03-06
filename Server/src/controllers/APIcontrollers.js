@@ -3,8 +3,8 @@ const connection = require("../config/database");
 const {
   getAllRooms,
   creatNewRooms,
-  checkAccount,
-  getUserByID,
+  checkAccount, getStatus1, getStatus2, getStatus3, getStatus4,
+  getUserByID, GetIdRoomByName,
   getFullAcc,
   getUserByUS,
   CreateAcc,
@@ -16,7 +16,10 @@ const {
   updateAccoutById,
   CheckBookingRoom,
   CheckTimeBookings,
-  Bookings,
+  Bookings, 
+  getTotalRooms,
+  getTotalAccounts,
+  getTotalBookings
 } = require("../services/CRUD");
 
 const getAdmin = async (req, res) => {
@@ -187,6 +190,8 @@ const DeleteR = async (req, res) => {
   }
 };
 
+/*================ ACCOUNT =================*/
+
 const AdQLTK = async (req, res) => {
   try {
     let acc = await getFullAcc();
@@ -204,23 +209,23 @@ const AdQLTK = async (req, res) => {
 
 const Register = async (req, res) => {
   try {
-    const { cusername, cpass, fullname, role } = req.body;
+    const { username, password, email, fullname, role } = req.body;
 
     const userRole = role ? role : "USER"; //Dùng tích chọn 1 đối tượng 'ADMIN'
 
-    if (!cusername || !cpass || !fullname) {
+    if (!username || !password || !fullname || !email) {
       return res.status(400).json({
         message: "Vui lòng nhập đầy đủ thông tin!",
       });
     }
 
-    if (cpass.length < 8) {
+    if (password.length < 8) {
       return res.status(400).json({
         message: "Mật khẩu dài tối thiểu 8 ký tự!",
       });
     }
 
-    let check = await getUserByUS(cusername);
+    let check = await getUserByUS(username);
 
     if (check.length > 0) {
       return res.status(409).json({
@@ -228,7 +233,7 @@ const Register = async (req, res) => {
       });
     }
 
-    await CreateAcc(cusername, cpass, fullname, userRole);
+    await CreateAcc( username, password, email, fullname ,role);
 
     return res.status(200).json({
       message: "Tạo tài khoản thành công!",
@@ -255,28 +260,43 @@ const DeleteAcc = async (req, res) => {
   }
 };
 
+
+const getUpdateAcc = async (req, res) => {
+  try {
+    let id = req.params.ida;
+
+    let acc = await getUserByID(id);
+
+    return res.status(200).json({
+      message: "Lấy thông tin tài khoản thành công!",
+      data: acc,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: "Lỗi server!",
+      error: error.message,
+    });
+  }
+}
+
 const UpdateAccout = async (req, res) => {
   try {
     let id = req.params.ida;
-    let pass = req.body.password;
-    let role = req.body.roleA;
-    let name = req.body.nameA;
+    let {password, email, name, role} = req.body;
 
-    const userRole = role ? role : "USER";
-
-    if (!pass || !name) {
+    if (!password || !name || !email) {
       return res.status(400).json({
         message: "Vui lòng điền đầy đủ thông tin!",
       });
     }
 
-    if (pass.length < 8) {
+    if (password.length < 8) {
       return res.status(400).json({
         message: "Mật khẩu dài tối thiểu 8 ký tự!",
       });
     }
 
-    await updateAccoutById(id, pass, userRole, name);
+    await updateAccoutById(id, password, email, name, role);
 
     return res.status(200).json({
       message: "Cập nhật thông tin tài khoản thành công!",
@@ -288,6 +308,9 @@ const UpdateAccout = async (req, res) => {
     });
   }
 };
+
+
+/*================ BOOKINGS =================*/
 
 const ReqRooms = async (req, res) => {
   try {
@@ -319,31 +342,17 @@ const ReqRooms = async (req, res) => {
 
 const BookingRooms = async (req, res) => {
   try {
-    let { StartTime, EndTime } = req.body;
-    let roomID = req.params.idr;
-    let idUser = req.session.user.id;
+    let { roomName, date, ca_hoc , purpose } = req.body;
+    let idUser = 5 //req.session.user.id;
+    let roomID = await GetIdRoomByName(roomName);
+      if (!roomName || !date || !ca_hoc) { 
+        return res.status(400).json({
+          message: "Vui lòng nhập đầy đủ thông tin!",
+        });
+      }
 
-    if (!StartTime || !EndTime) {
-      return res.status(400).json({
-        message: "Vui lòng điền đầy đủ thông tin!",
-      });
-    }
-
-    if (new Date(StartTime) >= new Date(EndTime)) {
-      return res.status(400).json({
-        message: "Thời gian không hợp lệ",
-      });
-    }
-
-    const exist = await CheckTimeBookings(roomID, StartTime, EndTime);
-
-    if (exist.length > 0) {
-      return res.status(400).json({
-        message: "Thời gian đặt bị trùng!",
-      });
-    }
-
-    await Bookings(idUser, roomID, StartTime, EndTime);
+    
+    await Bookings(idUser, roomID, ca_hoc, date, purpose);
 
     return res.status(200).json({
       message: "Đăng ký thành công!",
@@ -356,12 +365,94 @@ const BookingRooms = async (req, res) => {
   }
 };
 
+const getTotalRows = async (req, res) => {
+  try {
+    const totalRooms = await getTotalRooms();
+    const totalAccounts = await getTotalAccounts();
+    const totalBookings = await getTotalBookings();
+
+    return res.status(200).json({
+      totalRooms,
+      totalAccounts,
+      totalBookings
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      message: "Lỗi server!",
+    });
+  }
+};
 
 
+const SearchingAccount = async (req, res) => {
+  try {
+    const name = req.query.username;
+
+    const accounts = await getUserByUS(name);
+
+    return res.status(200).json({
+      message: "Tìm kiếm thành công!",
+      data: accounts,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: "Lỗi server!",
+    });
+  }
+};
+
+const ShowRooms = async (req, res) => {
+  try {
+    let name = req.query.roomName;
+
+    // console.log("Name nhận được:", name);
+
+    let rooms = await GetRoomByName(name);
+
+    return res.status(200).json({
+      message: "Lấy thông tin phòng thành công!",
+      data: rooms,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      message: "Lỗi server!",
+    });
+  }
+};
+
+const getStatus = async (req, res) => {
+  try {
+    const name = req.body.roomName;
+    const id = await GetIdRoomByName(name);
+    console.log("ID phòng nhận được:", id);
+    const date = req.body.date;
+    const status1 = await getStatus1(id, date);
+    const status2 = await getStatus2(id, date);
+    const status3 = await getStatus3(id, date);
+    const status4 = await getStatus4(id, date);
+    // console.log(status1, status2, status3, status4);
+    // console.log(typeof date);
+
+    return res.status(200).json({
+      message: "Lấy trạng thái thành công!",
+      ca1: status1,
+      ca2: status2,
+      ca3: status3,
+      ca4: status4
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      message: "Lỗi server!",
+    });
+  }
+};
 
 module.exports = {
-  getAdmin, getUpdateR,
-  postNewRooms,
+  getAdmin, getUpdateR, getTotalRows,
+  postNewRooms, getStatus,
   postLogin,
   AdQLTK,
   Register,
@@ -369,6 +460,6 @@ module.exports = {
   DeleteR,
   DeleteAcc,
   UpdateAccout,
-  ReqRooms,
-  BookingRooms, Searching
+  ReqRooms, ShowRooms,
+  BookingRooms, Searching, SearchingAccount, getUpdateAcc
 };
