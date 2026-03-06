@@ -8,7 +8,7 @@ document.getElementById("btnAddRoom").addEventListener("click", async function (
     if (confirm("Bạn có chắc chắn muốn tạo phòng mới?")) {
         
         try {
-            const res = await fetch(`http://localhost:8081/api/create-new-rooms`, {
+            const res = await apiFetch(`${URL_BE}/api/create-new-rooms`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"

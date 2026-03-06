@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", async function () {
     try {
-        const response = await fetch("http://localhost:8081/api/admin/rooms");
+        const response = await apiFetch(`${URL_BE}/api/admin/rooms`);
         const results = await response.json();
 
         const rooms = results.data;
@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             const name = document.getElementById("searchInput").value.trim();
             try {
                 if (name) {
-                    const res = await fetch(`http://localhost:8081/api/admin/searching?name=${encodeURIComponent(name)}`);
+                    const res = await apiFetch(`${URL_BE}/api/admin/searching?name=${encodeURIComponent(name)}`);
 
 
                     const data = await res.json();

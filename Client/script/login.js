@@ -55,7 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     try {
       // Gửi yêu cầu đăng nhập tới API
-      const res = await fetch("http://localhost:8081/api/login", {
+      const res = await fetch(`${URL_BE}/api/login`, {
         method: "POST",
         credentials: "include",
         headers: { "Content-Type": "application/json" },
@@ -87,13 +87,14 @@ document.addEventListener("DOMContentLoaded", () => {
       showMsg("ok", "Đăng nhập thành công! Đang chuyển trang...");
 
       setTimeout(() => {
-        if (role === "ADMIN") window.location.href = "/admin.html"; 
+        if (res.ok && role === "ADMIN") window.location.href = "/admin.html"; 
         else window.location.href = "/home.html"; 
       }, 500);
 
     } catch (err) {
       showMsg("error", "Không kết nối được tới server/API.");
       btnLogin.disabled = false;
+      console.error("Lỗi khi đăng nhập:", err);
     }
   });
 });

@@ -5,7 +5,7 @@ const {
   postLogin, getUpdateAcc,
   AdQLTK, ShowRooms,
   Register, getStatus,
-  UpdateR, logout,
+  UpdateR,
   DeleteR,
   DeleteAcc,
   UpdateAccout, ReqRooms, BookingRooms, Searching, SearchingAccount
@@ -22,7 +22,7 @@ const router = express.Router();
 const RestAPIs = (app) => {
   router.get("/", CheckLogin); // CheckLogin-->Hàm này để check đăng nhập với role là gì
 
-  router.post("/login", postLogin); //
+  router.post("/login", CheckLogin ,postLogin); //
 
   router.get("/admin/rooms",CheckLogin , getAdmin); //Get all room for admin
 
@@ -58,13 +58,8 @@ const RestAPIs = (app) => {
 
   router.post("/get-status", CheckLogin ,getStatus); 
 
-  router.post("/logout", CheckLogin ,logout);
-
-  router.get("/test", (req, res) =>{
-    res.json({message: "TEST API OK"})
-  })
-
   
+
   return app.use('/api/', router);
 };
 

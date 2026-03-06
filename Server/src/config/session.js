@@ -1,19 +1,20 @@
-const session = require('express-session');
-
-
+const session = require("express-session");
 
 const configSession = (app) => {
   app.use(
     session({
-      secret: 'secret-key',
+      name: "connect.sid",
+      secret: "secret-key",
       resave: false,
       saveUninitialized: false,
       cookie: {
-        maxAge: 60 * 60 * 1000 // 1 giờ
+        httpOnly: true,
+        sameSite: "lax", // hoặc "none" nếu cross-site
+        secure: false
       }
     })
   );
 };
 
-
 module.exports = configSession;
+

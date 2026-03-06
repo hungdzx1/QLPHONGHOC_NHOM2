@@ -114,14 +114,22 @@ const postLogin = async (req, res) => {
   }
 
   req.session.user = {
-    id: user.idAccount,
-    username: user.userName,
+    username: user.username,
     role: user.role,
   };
 
-  return res.status(200).json({
-    message: "Đăng nhập thành công!",
-    role: user.role,
+    // console.log("SESSION USER:", req.session.user);
+    // console.log("Cookie sau khi đăng nhập:", req.headers.cookie);
+
+  req.session.save((err) => {
+    if (err) {
+      return res.status(500).json({ message: "Lỗi lưu session" });
+    }
+
+    return res.status(200).json({
+      message: "Đăng nhập thành công",
+      role: user.role
+    });
   });
 };
 
@@ -426,7 +434,7 @@ const getStatus = async (req, res) => {
   try {
     const name = req.body.roomName;
     const id = await GetIdRoomByName(name);
-    console.log("ID phòng nhận được:", id);
+    // console.log("ID phòng nhận được:", id);
     const date = req.body.date;
     const status1 = await getStatus1(id, date);
     const status2 = await getStatus2(id, date);
@@ -450,10 +458,29 @@ const getStatus = async (req, res) => {
   }
 };
 
+
+const logout = (req, res) => {
+  req.session.destroy((err) => {
+    if (err) {
+      return res.status(500).json({
+        message: "Đăng xuất thất bại"
+      });
+    }
+
+    res.clearCookie("connect.sid", {
+      path: "/"
+    }); // xóa cookie session
+
+    return res.status(200).json({
+      message: "Đăng xuất thành công"
+    });
+  });
+};
+
 module.exports = {
   getAdmin, getUpdateR, getTotalRows,
   postNewRooms, getStatus,
-  postLogin,
+  postLogin, logout,
   AdQLTK,
   Register,
   UpdateR,

@@ -12,25 +12,28 @@ const cors = require('cors');
 
 const app = express();
 
-const port = process.env.PORT;
-const hostname = process.env.HOST_NAME;
-
 configView(app);
-configSession(app);
-
-
-app.use(express.json()) //convert data to json
-app.use(express.urlencoded({extended: true})) //for form data
 
 app.use(cors({
   origin: `http://127.0.0.1:5500`,
   methods: "GET,POST,PUT,DELETE",
   credentials: true,
-}))
+}));
+
+configSession(app);
+
+const port = process.env.PORT;
+const hostname = process.env.HOST_NAME;
+
+
+app.use(express.json()) //convert data to json
+app.use(express.urlencoded({extended: true})) //for form data
+
+
 
 RestAPIs(app);
 // app.use('/', webRoutes); 
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
+app.listen(port, hostname , () => {
+  console.log(`Example app listening on port ${hostname}:${port}`)
+});

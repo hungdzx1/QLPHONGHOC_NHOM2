@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', async () => {
     try {
-        const res = await fetch("http://localhost:8081/api/admin/ql-taikhoan");
+        const res = await apiFetch(`${URL_BE}/api/admin/ql-taikhoan`);
         const data = await res.json();
         
         const acc = data.data;
@@ -37,7 +37,7 @@ document.getElementById("btnSearch").addEventListener("click", async (event) => 
     const username = document.getElementById("searchInput").value.trim();
     if (username) {
         try {
-            const res = await fetch(`http://localhost:8081/api/admin/searching-account?username=${encodeURIComponent(username)}`);
+            const res = await apiFetch(`${URL_BE}/api/admin/searching-account?username=${encodeURIComponent(username)}`);
             const data = await res.json();
             
             if (res.ok) {
@@ -76,7 +76,7 @@ document.getElementById("btnSearch").addEventListener("click", async (event) => 
 const editAccount = async (id) => {
     if (confirm("Bạn có chắc chắn muốn sửa tài khoản này?")) {
         try {
-            const res = await fetch(`http://localhost:8081/api/admin/update-account/${id}`);
+            const res = await apiFetch(`${URL_BE}/api/admin/update-account/${id}`);
             const data = await res.json();
 
             const acc = data.data;
@@ -123,7 +123,7 @@ const editAccount = async (id) => {
  const deleteAccount = async (id) => {
     if (confirm("Bạn có chắc chắn muốn xóa tài khoản này?")) {
         try {
-            const res = await fetch(`http://localhost:8081/api/admin/delete-acc/${id}`, {
+            const res = await apiFetch(`${URL_BE}/api/admin/delete-acc/${id}`, {
                 method: "DELETE"
             });
             if (res.ok) {
@@ -147,7 +147,7 @@ const editAccount = async (id) => {
 
     if(confirm("Bạn có chắc chắn muốn cập nhật tài khoản này?")) {
         try {
-            const response = await fetch(`http://localhost:8081/api/admin/update-account/${id}`, {
+            const response = await apiFetch(`${URL_BE}/api/admin/update-account/${id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'

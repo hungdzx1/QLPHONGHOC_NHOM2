@@ -1,7 +1,8 @@
 document.addEventListener('DOMContentLoaded', async () => {
     try {
-        const res = await fetch("http://localhost:8081/api/get-total-rows");
+        const res = await apiFetch(`${URL_BE}/api/get-total-rows`);
         const data = await res.json();
+
         
         if (res.ok) {
             const totalRows = document.querySelector(".grid");
@@ -12,7 +13,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 </div>
                 <div class="mini">
                     <b>Chờ duyệt</b>
-                    <span>${data.pendingRooms || 0}</span>
+                    <span>${data.totalBookings || 0}</span>
                 </div>
                 <div class="mini">
                     <b>Tài khoản</b>
@@ -28,8 +29,22 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 
 // Logout demo
-document.getElementById('btnLogout').addEventListener('click', () => {
-    // Bạn đổi sang endpoint thật của bạn:
-    // window.location.href = "/logout";
-    alert("Đã bấm Đăng xuất (demo). Bạn đổi sang /logout hoặc gọi API backend nhé.");
+document.getElementById('btnLogout').addEventListener('click', async () => {
+    if (confirm("Bạn có muốn đăng xuất tài khoản này?")) {
+        try {
+            const res = await apiFetch(`${URL_BE}/api/logout`, {
+                method: "POST",
+                credentials: "include"
+            });
+
+            const data = await res.json();
+
+            alert(data.message);
+
+            window.location.href = "login.html";
+
+        } catch (error) {
+            console.error("Lỗi khi đăng xuất: ", error);
+        }
+    }
 });

@@ -10,7 +10,7 @@ document.getElementById('btnAddAccount').addEventListener('click', async functio
 
     if(confirm("Bạn có chắc chắn muốn tạo tài khoản mới?")) {
         try {
-            const res = await fetch(`http://localhost:8081/api/admin/register`, {
+            const res = await apiFetch(`${URL_BE}/api/admin/register`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"

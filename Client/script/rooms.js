@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", async function () {
     try {
-        const response = await fetch("http://localhost:8081/api/admin/rooms");
+        const response = await apiFetch(`${URL_BE}/api/admin/rooms`);
         const results = await response.json();
 
         const rooms = results.data;
@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             const name = document.getElementById("searchInput").value.trim();
             try {
                 if (name) {
-                    const res = await fetch(`http://localhost:8081/api/admin/searching?name=${encodeURIComponent(name)}`);
+                    const res = await apiFetch(`${URL_BE}/api/admin/searching?name=${encodeURIComponent(name)}`);
 
                     // console.log(res);
 
@@ -97,7 +97,7 @@ const editRoom = async (id) => {
     // window.location.href = `build.html?id=${id}`;
     if(confirm("Bạn có chắc chắn muốn sửa phòng này?")) {
         try {
-            const response = await fetch(`http://localhost:8081/api/update-rooms/${id}`);
+            const response = await apiFetch(`${URL_BE}/api/update-rooms/${id}`);
             const data = await response.json();
             const room = data.data;
             if (room) {
@@ -142,7 +142,7 @@ const editRoom = async (id) => {
 const deleteRoom = async (id) => {
     if (confirm("Bạn có chắc chắn muốn xóa phòng này?")) {
         try {
-            const response = await fetch(`http://localhost:8081/api/admin/delete-room/${id}`, {
+            const response = await apiFetch(`${URL_BE}/api/admin/delete-room/${id}`, {
                 method: 'DELETE'
             });
 
@@ -168,7 +168,7 @@ async function saveRoomChanges(id, event) {
 
     if (confirm("Bạn có chắc chắn muốn lưu thay đổi?")) {
         try {
-            const res = await fetch(`http://localhost:8081/api/results-update/${id}`, {
+            const res = await apiFetch(`${URL_BE}/api/results-update/${id}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json"

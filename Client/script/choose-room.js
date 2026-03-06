@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     // console.log("Tên phòng được chọn:", roomName);
     try {
-        const response = await fetch(`http://localhost:8081/api/admin/choose-rooms?roomName=${encodeURIComponent(roomName)}`);
+        const response = await apiFetch(`${URL_BE}/api/admin/choose-rooms?roomName=${encodeURIComponent(roomName)}`);
         const data = await response.json();
 
         // console.log("RESPONSE:", response);
@@ -80,7 +80,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                     return;
                 }
             try {
-                const res = await fetch(`http://localhost:8081/api/get-status`, {
+                const res = await apiFetch(`${URL_BE}/api/get-status`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"
@@ -195,7 +195,7 @@ const Choose = (roomName, formatted, date, ca_hoc) => {
     btnConfirm.addEventListener("click", async () => {
         const purpose = document.getElementById("purpose").value.trim();
         try {
-            const res = await fetch('http://localhost:8081/api/bookings', {
+            const res = await apiFetch(`${URL_BE}/api/bookings`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
