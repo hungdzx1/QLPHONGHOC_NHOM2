@@ -76,7 +76,7 @@ body {
     color: var(--muted);
 }
 
-/* Profile dropdown (hover) */
+
 .profile {
     position: relative;
     display: flex;
@@ -139,10 +139,9 @@ body {
     box-shadow: var(--shadow);
     padding: 8px;
     display: none;
-    transform: translateY(-8px);
+    transform: translateY(-10px);
 }
 
-/* Hover vào cụm logo/avatar => hiện logout */
 .profile:hover .dropdown {
     display: block;
 }
@@ -175,7 +174,6 @@ body {
     font-size: 12px;
 }
 
-/* ===== Layout ===== */
 .layout {
     display: flex;
     min-height: calc(100vh - var(--header-h));

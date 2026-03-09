@@ -2,7 +2,7 @@ const express = require("express");
 const {
   getAdmin, getUpdateR,
   postNewRooms, getTotalRows, 
-  postLogin, getUpdateAcc,
+  postLogin, getUpdateAcc, Auth,
   AdQLTK, ShowRooms,
   Register, getStatus,
   UpdateR, logout,
@@ -50,7 +50,7 @@ const RestAPIs = (app) => {
 
   router.delete("/admin/delete-acc/:ida", CheckLogin ,DeleteAcc); //xóa tài khoản theo id chọn
 
-  router.get("/req-rooms/:idr", CheckLogin ,ReqRooms); //Lấy thông tin phòng trước khi mượn
+  router.get("/req-rooms", CheckLogin ,ReqRooms); //Lấy thông tin phòng đã đăng ký theo id user
 
   router.post("/bookings", CheckLogin ,BookingRooms);
 
@@ -60,9 +60,7 @@ const RestAPIs = (app) => {
 
   router.post("/logout", CheckLogin ,logout);
 
-  router.get("/test", (req, res) =>{
-    res.json({message: "TEST API OK"})
-  })
+  router.get("/auth", Auth);
 
   
   return app.use('/api/', router);

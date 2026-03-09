@@ -39,3 +39,23 @@ document.getElementById('btnAddAccount').addEventListener('click', async functio
     }
 
 });
+
+document.getElementById('btnLogout').addEventListener('click', async () => {
+    if (confirm("Bạn có muốn đăng xuất tài khoản này?")) {
+        try {
+            const res = await apiFetch(`${URL_BE}/api/logout`, {
+                method: "POST",
+                credentials: "include"
+            });
+
+            const data = await res.json();
+
+            alert(data.message);
+
+            window.location.href = "login.html";
+
+        } catch (error) {
+            console.error("Lỗi khi đăng xuất: ", error);
+        }
+    }
+});

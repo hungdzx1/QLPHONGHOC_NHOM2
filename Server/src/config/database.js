@@ -29,4 +29,15 @@ const connection = new Pool({
   }
 });
 
+
+//local
+// const connection = new Pool({
+//   user: "postgres",
+//   host: "localhost",
+//   database: "postgres",
+//   password: "123456",
+//   port: 5432,
+//   ssl: false
+// });
+
 module.exports = connection;

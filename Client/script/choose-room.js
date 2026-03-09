@@ -210,8 +210,9 @@ const Choose = (roomName, formatted, date, ca_hoc) => {
             const data = await res.json();
             if (res.ok) {
                 alert("Đặt phòng thành công!");
-                modal.classList.add("hidden");
-                overlay.classList.add("hidden");
+                // modal.classList.add("hidden");
+                // overlay.classList.add("hidden");
+                window.location.href = "/phong-da-dang-ky.html";
             } else {
                 alert("Đặt phòng thất bại: " + data.message);
             }
@@ -221,3 +222,23 @@ const Choose = (roomName, formatted, date, ca_hoc) => {
     });
 };
 
+/*LOGOUT*/
+document.getElementById('btnLogout').addEventListener('click', async () => {
+    if (confirm("Bạn có muốn đăng xuất tài khoản này?")) {
+        try {
+            const res = await apiFetch(`${URL_BE}/api/logout`, {
+                method: "POST",
+                credentials: "include"
+            });
+
+            const data = await res.json();
+
+            alert(data.message);
+
+            window.location.href = "login.html";
+
+        } catch (error) {
+            console.error("Lỗi khi đăng xuất: ", error);
+        }
+    }
+});

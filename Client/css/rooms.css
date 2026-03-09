@@ -28,7 +28,7 @@ body {
     min-height: 100vh;
 }
 
-/* ===== Header ===== */
+
 .header {
     position: sticky;
     top: 0;
@@ -76,7 +76,7 @@ body {
     color: var(--muted);
 }
 
-/* Profile dropdown (hover) */
+
 .profile {
     position: relative;
     display: flex;
@@ -139,7 +139,7 @@ body {
     box-shadow: var(--shadow);
     padding: 8px;
     display: none;
-    transform: translateY(-8px);
+    transform: translateY(-10px);
 }
 
 /* Hover vào cụm logo/avatar => hiện logout */
@@ -546,7 +546,7 @@ body {
     border-radius: 5px;
 }
 
-
+/*==============STATUS==================================*/
 .status.ok{
     color: #4ade80;
     font-weight: 600;
@@ -554,6 +554,17 @@ body {
 
 .status.error{
     color: #ef4444;
+    font-weight: 600;
+}
+
+
+.status.pending{
+    color: #FFBF00;
+    font-weight: 600;
+}
+
+.status.cancelled{
+    color: #808080;
     font-weight: 600;
 }
 
@@ -659,4 +670,22 @@ body {
 
 .input-inf input:focus{
     outline: 2px solid var(--brand);
+}
+
+
+/*====================PHONG DA DANG KY====================*/
+.btn-xoa{
+    background: var(--danger);
+    color: var(--text);
+    border: none;
+    padding: 5px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn-xoa:disabled{
+    background: var(--muted);
+    color: #fff;
+    cursor: not-allowed !important;
+    /* pointer-events: none; */
 }

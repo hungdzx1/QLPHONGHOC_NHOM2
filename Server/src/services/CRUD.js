@@ -121,10 +121,19 @@ const updateAccoutById = async (id, password, email, name, role) => {
 
 const CheckBookingRoom = async (id) => {
   const { rows } = await pool.query(
-    `SELECT * FROM bookings WHERE room_id = $1`,
+    `SELECT 
+    bookings.id,
+    bookings.date,
+    bookings.ca_hoc,
+    bookings.status,
+    rooms.room_name,
+    rooms.room_type
+    FROM bookings
+    JOIN rooms ON bookings.room_id = rooms.id
+    WHERE bookings.user_id = $1;`,
     [id]
   );
-  return rows[0] || null;
+  return rows || null;
 };
 
 const CheckTimeBookings = async (id, start, end) => {
@@ -163,7 +172,7 @@ const getTotalAccounts = async () => {
 };
 
 const getTotalBookings = async () => {
-  const { rows } = await pool.query("SELECT COUNT(*) FROM bookings");
+  const { rows } = await pool.query("SELECT COUNT(*) FROM bookings WHERE status = 'PENDING'");
   return parseInt(rows[0].count, 10);
 }
 

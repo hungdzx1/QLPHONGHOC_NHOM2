@@ -18,7 +18,7 @@
     <div class="profile" aria-label="Tài khoản">
       <div class="avatar" title="Avatar">TP</div>
       <div class="meta">
-        <b>Admin</b>
+        <b id="fullname">Admin</b>
         <span></span>
       </div>
       <div class="caret" aria-hidden="true"></div>
@@ -48,7 +48,7 @@
         <h3>Thêm Phòng Mới</h3>
         <form id="editRoomForm">
             <label for="roomName">Tên phòng:</label>
-            <input type="text" id="roomName" name="roomName" required>
+            <input type="text" id="roomName" name="roomName" required placeholder="vd: A6-101">
     
             <label for="roomType">Loại phòng:</label>
             <select id="roomType" name="roomType" required>
@@ -73,6 +73,7 @@
     </main>
   </div>
     <script src="./script/CheckLogin.js"></script>
+    <script src="./script/Auth.js"></script>
     <script defer src="./script/add-rooms.js"></script>
 </body>
 </html>

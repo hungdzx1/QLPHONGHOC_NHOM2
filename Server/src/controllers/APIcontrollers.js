@@ -1,4 +1,5 @@
 const connection = require("../config/database");
+const { get } = require("../routes/web");
 
 const {
   getAllRooms,
@@ -114,6 +115,7 @@ const postLogin = async (req, res) => {
   }
 
   req.session.user = {
+    id: user.id,
     username: user.username,
     role: user.role,
   };
@@ -322,25 +324,19 @@ const UpdateAccout = async (req, res) => {
 
 const ReqRooms = async (req, res) => {
   try {
-    let id = req.params.idr;
-
-    let rooms = await getRoomByID(id);
+    let id = req.session.user.id;
 
     let checkBooking = await CheckBookingRoom(id);
+
+    // console.log("checkBooking:", checkBooking);
 
     if (checkBooking.length > 0) {
       return res.status(200).json({
         message: "Thành công!",
-        statusRoom: "Bận",
-        Data: rooms,
+        data: checkBooking,
       });
     }
 
-    return res.status(200).json({
-      message: "Thành công!",
-      statusRoom: "Trống",
-      Data: rooms,
-    });
   } catch (error) {
     return res.status(500).json({
       message: "Server Lỗi!",
@@ -351,7 +347,7 @@ const ReqRooms = async (req, res) => {
 const BookingRooms = async (req, res) => {
   try {
     let { roomName, date, ca_hoc , purpose } = req.body;
-    let idUser = 5 //req.session.user.id;
+    let idUser = req.session.user.id;
     let roomID = await GetIdRoomByName(roomName);
       if (!roomName || !date || !ca_hoc) { 
         return res.status(400).json({
@@ -477,10 +473,30 @@ const logout = (req, res) => {
   });
 };
 
+
+const Auth = async (req, res) => {
+  if(req.session.user) {
+    
+    let user = req.session.user.username;
+    const auth = await getUserByUS(user);
+
+    // console.log("user: ", user);
+    // console.log(auth);
+    
+    return res.status(200).json({
+      data: auth,
+      message: "Success!",
+    });
+  }
+  return res.status(401).json({
+    message: "Chưa đăng nhập",
+  });
+}
+
 module.exports = {
   getAdmin, getUpdateR, getTotalRows,
   postNewRooms, getStatus,
-  postLogin, logout,
+  postLogin, logout, Auth,
   AdQLTK,
   Register,
   UpdateR,

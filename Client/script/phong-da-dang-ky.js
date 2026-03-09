@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", async function () {
     try {
-        const response = await apiFetch(`${URL_BE}/api/admin/rooms`);
+        const response = await apiFetch(`${URL_BE}/api/req-rooms`);
         const results = await response.json();
 
         const rooms = results.data;
@@ -12,13 +12,19 @@ document.addEventListener("DOMContentLoaded", async function () {
             rooms.forEach(room => {
                 const roomElement = document.createElement('div');
                 roomElement.classList.add('rooms');
-
+                const date = new Date(room.date).toLocaleDateString("vi-VN");
                 roomElement.innerHTML = `
-              <h3>${room.room_name}</h3>
-              <p>Loại phòng: ${room.room_type}</p>
-              <p>Sức chứa: ${room.so_luong} người</p>
-              <p class="status ${room.is_available ? 'ok' : 'error'}">Trạng thái: ${room.is_available ? "Đang sử dụng" : "Bảo trì"} </p>
-              <button class="btn-choose" onclick="Choose('${room.room_name}')">Chọn</button>
+                <h3>Phòng ${room.room_name}</h3>
+                <p>Loại phòng: ${room.room_type}</p>
+                <p>Ca: ${room.ca_hoc}</p>
+                <p>Ngày: ${date} </p>
+                <p class="status ${room.status === 'CANCELLED' ? 'cancelled' : room.status === 'PENDING' ? 'pending' : room.status === 'APPROVED' ? 'ok' : 'error'}" id="status">
+                    Trạng thái: 
+                    ${room.status === "PENDING" ? "Chờ Duyệt" : room.status === "APPROVED" ? "Đã Duyệt" : room.status === "REJECTED" ? "Bị từ chối" : "Đã hủy"}
+                </p>
+                <button class="btn-xoa" id="btn-xoa" ${(room.status === "APPROVED" || room.status === "CANCELLED" || room.status === "REJECTED") ? "disabled" : ""}>
+                    Hủy
+                </button>
             `;
 
                 roomsContainer.appendChild(roomElement);
@@ -60,11 +66,17 @@ document.addEventListener("DOMContentLoaded", async function () {
                         roomElement.classList.add('rooms');
 
                         roomElement.innerHTML = `
-                            <h3>${room.room_name}</h3>
+                            <h3>Phòng ${room.room_name}</h3>
                             <p>Loại phòng: ${room.room_type}</p>
-                            <p>Sức chứa: ${room.so_luong} người</p>
-                            <p class="status ${room.is_available ? 'ok' : 'error'}">Trạng thái: ${room.is_available ? "Đang sử dụng" : "Bảo trì"} </p>
-                            <button class="btn-choose" onclick="Choose(${room.room_name})">Chọn</button>
+                            <p>Ca: ${room.ca_hoc}</p>
+                            <p>Ngày: ${date} </p>
+                            <p class="status ${room.status === 'CANCELLED' ? 'cancelled' : room.status === 'PENDING' ? 'pending' : room.status === 'APPROVED' ? 'ok' : 'error'}" id="status">
+                                Trạng thái: 
+                                ${room.status === "PENDING" ? "Chờ Duyệt" : room.status === "APPROVED" ? "Đã Duyệt" : room.status === "REJECTED" ? "Bị từ chối" : "Đã hủy"}
+                            </p>
+                            <button class="btn-xoa" id="btn-xoa" ${(room.status === "APPROVED" || room.status === "CANCELLED" || room.status === "REJECTED") ? "disabled" : ""}>
+                            Hủy
+                            </button>
                     `;
 
                         roomsContainer.appendChild(roomElement);
@@ -90,8 +102,6 @@ const Choose = (room_name) => {
 }
 
 
-
-
 /*LOGOUT*/
 document.getElementById('btnLogout').addEventListener('click', async () => {
     if (confirm("Bạn có muốn đăng xuất tài khoản này?")) {
@@ -112,5 +122,3 @@ document.getElementById('btnLogout').addEventListener('click', async () => {
         }
     }
 });
-
-
