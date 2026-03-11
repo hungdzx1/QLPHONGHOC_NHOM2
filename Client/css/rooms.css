@@ -689,3 +689,33 @@ body {
     cursor: not-allowed !important;
     /* pointer-events: none; */
 }
+
+
+/*===================DUYET PHONG=====================*/
+.navbar > ul {
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 15px;
+}
+
+.main > .navbar > ul{
+    display: flex;
+    list-style-type: none;
+}
+
+.navbar > ul > li{
+
+}
+
+.navbar > ul > li > a{
+    text-decoration: none;
+    padding: 10px 15px;
+    color: var(--text);
+    border-radius: 10px;
+    border: 1px solid transparent;
+}
+
+.navbar > ul > li > a.active {
+    background: linear-gradient(135deg, rgba(110, 168, 254, .22), rgba(139, 92, 246, .18));
+    border-color: rgba(110, 168, 254, .25);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, .2);
+}

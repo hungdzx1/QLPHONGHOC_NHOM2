@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                     Trạng thái: 
                     ${room.status === "PENDING" ? "Chờ Duyệt" : room.status === "APPROVED" ? "Đã Duyệt" : room.status === "REJECTED" ? "Bị từ chối" : "Đã hủy"}
                 </p>
-                <button class="btn-xoa" id="btn-xoa" ${(room.status === "APPROVED" || room.status === "CANCELLED" || room.status === "REJECTED") ? "disabled" : ""}>
+                <button class="btn-xoa" id="btn-xoa" ${(room.status === "APPROVED" || room.status === "CANCELLED" || room.status === "REJECTED") ? "disabled" : ""} onclick="Huy_phong(${room.id})">
                     Hủy
                 </button>
             `;
@@ -74,7 +74,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                                 Trạng thái: 
                                 ${room.status === "PENDING" ? "Chờ Duyệt" : room.status === "APPROVED" ? "Đã Duyệt" : room.status === "REJECTED" ? "Bị từ chối" : "Đã hủy"}
                             </p>
-                            <button class="btn-xoa" id="btn-xoa" ${(room.status === "APPROVED" || room.status === "CANCELLED" || room.status === "REJECTED") ? "disabled" : ""}>
+                            <button class="btn-xoa" id="btn-xoa" ${(room.status === "APPROVED" || room.status === "CANCELLED" || room.status === "REJECTED") ? "disabled" : ""} onclick="Huy_phong(${room.id})">
                             Hủy
                             </button>
                     `;
@@ -97,8 +97,28 @@ document.addEventListener("DOMContentLoaded", async function () {
 
 });
 
-const Choose = (room_name) => {
-    window.location.href = `choose-rooms.html?roomName=${encodeURIComponent(room_name)}`;
+const Huy_phong = async (id) => {
+    if (confirm("Bạn có chắc muốn hủy yêu cầu này?")) {
+        try {
+            const res = await apiFetch(`${URL_BE}/api/change-status-bookings`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    id: id,
+                    status: "CANCELLED",
+                })
+            });
+
+            if (res.ok) {
+                alert("Yêu cầu đã được hủy!");
+                location.reload();
+            }
+        } catch (error) {
+            console.error('Error --> ', error);
+        }
+    }
 }
 
 

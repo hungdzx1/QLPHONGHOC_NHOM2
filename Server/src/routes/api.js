@@ -4,9 +4,9 @@ const {
   postNewRooms, getTotalRows, 
   postLogin, getUpdateAcc, Auth,
   AdQLTK, ShowRooms,
-  Register, getStatus,
+  Register, getStatus, ReqRoomsByStatus,
   UpdateR, logout,
-  DeleteR,
+  DeleteR, ChangeStatusBookings,
   DeleteAcc,
   UpdateAccout, ReqRooms, BookingRooms, Searching, SearchingAccount
 } = require("../controllers/APIcontrollers");
@@ -51,6 +51,10 @@ const RestAPIs = (app) => {
   router.delete("/admin/delete-acc/:ida", CheckLogin ,DeleteAcc); //xóa tài khoản theo id chọn
 
   router.get("/req-rooms", CheckLogin ,ReqRooms); //Lấy thông tin phòng đã đăng ký theo id user
+
+  router.post("/req-rooms-by-status", CheckLogin ,ReqRoomsByStatus); //Trả phòng theo trạng thái
+
+  router.post("/change-status-bookings", ChangeStatusBookings);
 
   router.post("/bookings", CheckLogin ,BookingRooms);
 

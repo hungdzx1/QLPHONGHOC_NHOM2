@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Rooms</title>
+  <title>Duyệt Phòng</title>
     <link rel="stylesheet" href="./css/rooms.css" />
 </head>
 
@@ -36,19 +36,21 @@
       <div class="nav-title">Menu</div>
       <nav class="nav" id="nav">
         <a href="/admin.html"><span class="icon">🏠</span>Home</a>
-        <a href="/rooms.html" class="active"><span class="icon">➕</span>Quản lí phòng</a>
+        <a href="/rooms.html"><span class="icon">➕</span>Quản lí phòng</a>
         <a href="/ql-taikhoan.html"><span class="icon">👤</span>Quản lí tài khoản</a>
-        <a href="/admin-duyet-phong.html"><span class="icon">✅</span>Duyệt phòng</a>
+        <a href="/admin-duyet-phong.html" class="active"><span class="icon">✅</span>Duyệt phòng</a>
       </nav>
     </aside>
 
     <main class="main">
-      <div class="searching">
-        <form action="" method="GET">
-            <input type="text" name="name" id="searchInput" placeholder="Tìm kiếm phòng...(VD: A7-102)">
-            <button type="submit" id="btnSearch">Tìm kiếm</button>
-        </form>
+      <div class="navbar">
+        <ul>
+          <li><a href="" id="pending" class="active">Chờ duyệt</a></li>
+          <li><a href="" id="approved">Đã duyệt</a></li>
+          <li><a href="" id="rejected">Từ chối</a></li>
+        </ul>
       </div>
+      
 
       <div class="box-rooms">
 
@@ -57,8 +59,8 @@
           <p>Loại phòng: Phòng học</p>
           <p>Sức chứa: 40 người</p>
           <p class="status ok">Trạng thái: Đang sử dụng</p>
-          <button class="btn-edit">Sửa</button>
-          <button class="btn-delete">Xóa</button>
+          <button class="btn-edit">Duyệt</button>
+          <button class="btn-delete">Từ chối</button>
         </div>
 
       </div>
@@ -67,17 +69,10 @@
 
       </div>
 
-      <div class="add-rooms">
-        <button class="btnall" id="btnAddRoom">
-            <span class="icon">➕</span>
-            Thêm phòng mới
-        </button>
-      </div>
-
     </main>
   </div>
     <script src="./script/CheckLogin.js"></script>
     <script src="./script/Auth.js"></script>
-    <script defer src="./script/rooms.js"></script>
+    <script defer src="./script/admin-duyet-phong.js"></script>
 </body>
 </html>

@@ -20,7 +20,7 @@ const {
   Bookings, 
   getTotalRooms,
   getTotalAccounts,
-  getTotalBookings
+  getTotalBookings, ChangeStatus
 } = require("../services/CRUD");
 
 const getAdmin = async (req, res) => {
@@ -493,6 +493,42 @@ const Auth = async (req, res) => {
   });
 }
 
+const ReqRoomsByStatus = async (req, res) => {
+  try {
+    let { status } = req.body;
+    let rooms = await CheckTimeBookings(status);
+
+
+    return res.status(200).json({
+      message: "Lấy thông tin phòng thành công!",
+      data: rooms,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      message: "Lỗi server!",
+    });
+  }
+}
+
+
+const ChangeStatusBookings = async (req,res) => {
+  try {
+    const { id, status } = req.body;
+    let idUser = req.session.user.id;
+    await ChangeStatus(id, idUser ,status);
+
+    return res.status(200).json({
+      message: "Cập nhật trạng thái thành công!",
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      message: "Lỗi server!",
+    });
+  }
+}
+
 module.exports = {
   getAdmin, getUpdateR, getTotalRows,
   postNewRooms, getStatus,
@@ -502,7 +538,7 @@ module.exports = {
   UpdateR,
   DeleteR,
   DeleteAcc,
-  UpdateAccout,
-  ReqRooms, ShowRooms,
+  UpdateAccout, ChangeStatusBookings,
+  ReqRooms, ShowRooms, ReqRoomsByStatus,
   BookingRooms, Searching, SearchingAccount, getUpdateAcc
 };

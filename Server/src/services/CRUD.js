@@ -136,19 +136,25 @@ const CheckBookingRoom = async (id) => {
   return rows || null;
 };
 
-const CheckTimeBookings = async (id, start, end) => {
+const CheckTimeBookings = async (stt) => {
   const { rows } = await pool.query(
-    `SELECT * FROM bookings
-     WHERE room_id = $1
-     AND status IN ('PENDING','APPROVED')
-     AND (
-          start_at < $2
-          AND end_at > $3
-         )`,
-    [id, end, start] 
+    `SELECT 
+    bookings.id,
+    bookings.date,
+    bookings.ca_hoc,
+    bookings.li_do,
+    rooms.room_name,
+    rooms.room_type,
+    rooms.so_luong,
+    account.fullname
+    FROM bookings
+    JOIN rooms ON bookings.room_id = rooms.id
+    join account on bookings.user_id = account.id
+    WHERE bookings.status = $1;`,
+    [stt]
   );
 
-  return rows[0] || null;
+  return rows || null;
 };
 
 const Bookings = async (userId, roomId, ca_hoc, date, purpose) => {
@@ -157,6 +163,16 @@ const Bookings = async (userId, roomId, ca_hoc, date, purpose) => {
      (user_id, room_id, ca_hoc, status, date, li_do)
      VALUES ($1, $2, $3, 'PENDING', $4, $5)`,
     [userId, roomId, ca_hoc, date, purpose]
+  );
+};
+
+const ChangeStatus = async (id, id_admin,status) => {
+  await pool.query(
+    `UPDATE bookings
+     SET status = $1,
+          admin_id = $2
+     WHERE id = $3`,
+    [status, id_admin, id]
   );
 };
 
@@ -234,7 +250,7 @@ const getStatus4 = async (id, date) => {
 module.exports = {
   getAllRooms, getStatus1, getStatus2, getStatus3, getStatus4,
   creatNewRooms, GetIdRoomByName,
-  checkAccount,
+  checkAccount, ChangeStatus,
   getUserByID,
   getFullAcc,
   getUserByUS,

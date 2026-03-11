@@ -11,7 +11,7 @@ const ShowStatus = (stt) => {
 const urlParams = new URLSearchParams(window.location.search);
 const roomName = urlParams.get("roomName");
 let room;
-console.log(roomName);
+// console.log(roomName);
 
 document.addEventListener("DOMContentLoaded", async () => {
 
@@ -98,16 +98,16 @@ document.addEventListener("DOMContentLoaded", async () => {
                 const ca2 = Number(row.ca2);
                 const ca3 = Number(row.ca3);
                 const ca4 = Number(row.ca4);
-                console.log("Date: ", date);
+                // console.log("Date: ", date);
 
                 const formatted = date.split("-").reverse().join("-");
-                console.log(formatted);
+                // console.log(formatted);
 
-                console.log("CA 1:", ca1);
-                console.log("CA1 type:", typeof ca1);
-                console.log("CA 2:", ca2);
-                console.log("CA 3:", ca3);
-                console.log("CA 4:", ca4);
+                // console.log("CA 1:", ca1);
+                // console.log("CA1 type:", typeof ca1);
+                // console.log("CA 2:", ca2);
+                // console.log("CA 3:", ca3);
+                // console.log("CA 4:", ca4);
 
                 if (res.ok && date) {
                     const boxRooms = document.querySelector('.box-rooms');

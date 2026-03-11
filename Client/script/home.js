@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", async function () {
               <p>Loại phòng: ${room.room_type}</p>
               <p>Sức chứa: ${room.so_luong} người</p>
               <p class="status ${room.is_available ? 'ok' : 'error'}">Trạng thái: ${room.is_available ? "Đang sử dụng" : "Bảo trì"} </p>
-              <button class="btn-choose" onclick="Choose('${room.room_name}')">Chọn</button>
+              <button class="btn-choose" onclick="Choose('${room.room_name}')" ${room.is_available ? "" : "disabled"}>Chọn</button>
             `;
 
                 roomsContainer.appendChild(roomElement);
@@ -64,7 +64,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                             <p>Loại phòng: ${room.room_type}</p>
                             <p>Sức chứa: ${room.so_luong} người</p>
                             <p class="status ${room.is_available ? 'ok' : 'error'}">Trạng thái: ${room.is_available ? "Đang sử dụng" : "Bảo trì"} </p>
-                            <button class="btn-choose" onclick="Choose(${room.room_name})">Chọn</button>
+                            <button class="btn-choose" onclick="Choose('${room.room_name}')" ${room.is_available ? "" : "disabled"}>Chọn</button>
                     `;
 
                         roomsContainer.appendChild(roomElement);
