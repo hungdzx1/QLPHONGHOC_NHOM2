@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
         const rooms = results.data;
 
+
         if (rooms && Array.isArray(rooms)) {
             const roomsContainer = document.querySelector('.box-rooms');
             roomsContainer.innerHTML = '';
@@ -113,4 +114,8 @@ document.getElementById('btnLogout').addEventListener('click', async () => {
     }
 });
 
+//change password
+document.getElementById('btnChangePassword').addEventListener('click', async () => {
+    window.location.href = 'change-password.html';
+});
 

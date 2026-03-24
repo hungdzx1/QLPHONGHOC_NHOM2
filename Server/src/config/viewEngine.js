@@ -6,7 +6,7 @@ const configView = (app) => {
   app.set("views", path.join("./src", "views"));
   app.set("view engine", "ejs"); //dùng ejs
 
-  app.use(express.static(path.join("./src", "public"))); //Cấu hình static
+  app.use(express.static(path.join(__dirname, "../../../Client"))); //Cấu hình static
 };
 
 module.exports = configView;

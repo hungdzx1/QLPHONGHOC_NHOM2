@@ -7,15 +7,15 @@ const {
   Register, getStatus, ReqRoomsByStatus,
   UpdateR, logout,
   DeleteR, ChangeStatusBookings,
-  DeleteAcc,
+  DeleteAcc, ChangePass,
   UpdateAccout, ReqRooms, BookingRooms, Searching, SearchingAccount
 } = require("../controllers/APIcontrollers");
 
 const {
   CheckLogin,
 } = require('../middleware/middle');
-
 const { checkAccount } = require("../services/CRUD");
+
 
 const router = express.Router();
 
@@ -50,7 +50,7 @@ const RestAPIs = (app) => {
 
   router.delete("/admin/delete-acc/:ida", CheckLogin ,DeleteAcc); //xóa tài khoản theo id chọn
 
-  router.get("/req-rooms", CheckLogin ,ReqRooms); //Lấy thông tin phòng đã đăng ký theo id user
+  router.post("/req-rooms", CheckLogin ,ReqRooms); //Lấy thông tin phòng đã đăng ký theo id user
 
   router.post("/req-rooms-by-status", CheckLogin ,ReqRoomsByStatus); //Trả phòng theo trạng thái
 
@@ -61,6 +61,8 @@ const RestAPIs = (app) => {
   router.get("/get-total-rows", CheckLogin ,getTotalRows);
 
   router.post("/get-status", CheckLogin ,getStatus); 
+
+  router.post("/change-pass", checkAccount, ChangePass);
 
   router.post("/logout", CheckLogin ,logout);
 

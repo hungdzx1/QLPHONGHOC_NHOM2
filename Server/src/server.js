@@ -29,7 +29,7 @@ const hostname = process.env.HOST_NAME;
 app.use(express.json()) //convert data to json
 app.use(express.urlencoded({extended: true})) //for form data
 
-
+// console.log(path.join(__dirname, "../../Client/login.html"));
 
 RestAPIs(app);
 // app.use('/', webRoutes); 

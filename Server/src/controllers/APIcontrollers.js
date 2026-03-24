@@ -6,7 +6,7 @@ const {
   creatNewRooms,
   checkAccount, getStatus1, getStatus2, getStatus3, getStatus4,
   getUserByID, GetIdRoomByName,
-  getFullAcc,
+  getFullAcc, checkpass, updatepass,
   getUserByUS,
   CreateAcc,
   getRoomByID,
@@ -319,6 +319,41 @@ const UpdateAccout = async (req, res) => {
   }
 };
 
+const ChangePass = async (req, res) => {
+  try {
+    if (!req.session || !req.session.user) {
+      return res.status(401).json({
+        message: "Bạn chưa đăng nhập!",
+        tus: false,
+      });
+    }
+
+    const id = req.session.user.id;
+    const { password, new_pass } = req.body;
+
+    const check = await checkpass(id, password);
+
+    if (!check) {
+      return res.status(400).json({
+        message: "Mật khẩu hiện tại không đúng!",
+        tus: false,
+      });
+    }
+
+    await updatepass(id, new_pass);
+
+    return res.status(200).json({
+      message: "Cập nhật mật khẩu thành công!",
+      tus: true,
+    });
+  } catch (error) {
+    console.error("ERROR ChangePass:", error.message);
+    return res.status(500).json({
+      message: error.message,
+      tus: false,
+    });
+  }
+};
 
 /*================ BOOKINGS =================*/
 
@@ -326,7 +361,9 @@ const ReqRooms = async (req, res) => {
   try {
     let id = req.session.user.id;
 
-    let checkBooking = await CheckBookingRoom(id);
+    let { status } = req.body;
+
+    let checkBooking = await CheckBookingRoom(id, status);
 
     // console.log("checkBooking:", checkBooking);
 
@@ -537,7 +574,7 @@ module.exports = {
   Register,
   UpdateR,
   DeleteR,
-  DeleteAcc,
+  DeleteAcc, ChangePass,
   UpdateAccout, ChangeStatusBookings,
   ReqRooms, ShowRooms, ReqRoomsByStatus,
   BookingRooms, Searching, SearchingAccount, getUpdateAcc

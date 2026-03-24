@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Dashboard</title>
-    <link rel="stylesheet" href="./css/rooms.css" />
+  <link rel="stylesheet" href="./css/rooms.css" />
 </head>
 
 <body>
@@ -18,7 +19,7 @@
     </div>
 
     <div class="profile" aria-label="Tài khoản">
-      <div class="avatar" title="Avatar">TP</div>
+      <div class="avatar" title="Avatar"><img src="./img/avt.jpg"></div>
       <div class="meta">
         <b id="fullname"></b>
         <span></span>
@@ -26,9 +27,15 @@
       <div class="caret" aria-hidden="true"></div>
 
       <div class="dropdown" role="menu">
-        <button class="logout" id="btnLogout" type="button">
+
+        <button class="logout" id="btnChangePassword" type="button"> 
+          <span class="tag">Đổi mật khẩu</span>
+        </button>
+
+        <button class="logout" id="btnLogout" type="button"> 
           <span class="tag">Đăng Xuất</span>
         </button>
+
       </div>
     </div>
   </header>
@@ -43,29 +50,31 @@
     </aside>
 
     <main class="main">
-        <div class="searching">
-            <form action="" method="GET">
-                <input type="text" name="name" id="searchInput" placeholder="Tìm kiếm phòng...(VD: A7-102)">
-                <button type="submit" id="btnSearch">Tìm kiếm</button>
-            </form>
+      <div class="searching">
+        <form action="" method="GET">
+          <input type="text" name="name" id="searchInput" placeholder="Tìm kiếm phòng...(VD: A7-102)">
+          <button type="submit" id="btnSearch">Tìm kiếm</button>
+        </form>
+      </div>
+
+
+      <div class="box-rooms">
+
+        <div class="rooms">
+          <h3>Phòng A7-102</h3>
+          <p>Loại phòng: Phòng học</p>
+          <p>Sức chứa: 40 người</p>
+          <p class="status ok">Trạng thái: Đang sử dụng</p>
+          <button class="btn-choose">Chọn</button>
         </div>
-    
-        <div class="box-rooms">
-    
-            <div class="rooms">
-                <h3>Phòng A7-102</h3>
-                <p>Loại phòng: Phòng học</p>
-                <p>Sức chứa: 40 người</p>
-                <p class="status ok">Trạng thái: Đang sử dụng</p>
-                <button class="btn-choose">Chọn</button>
-            </div>
-    
-        </div>
+
+      </div>
     </main>
   </div>
 
-    <script src="./script/CheckLogin.js"></script>
-    <script src="./script/Auth.js"></script>
-    <script defer src="./script/home.js"></script>
+  <script src="./script/CheckLogin.js"></script>
+  <script src="./script/Auth.js"></script>
+  <script defer src="./script/home.js"></script>
 </body>
+
 </html>

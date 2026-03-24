@@ -101,13 +101,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 // console.log("Date: ", date);
 
                 const formatted = date.split("-").reverse().join("-");
-                // console.log(formatted);
-
-                // console.log("CA 1:", ca1);
-                // console.log("CA1 type:", typeof ca1);
-                // console.log("CA 2:", ca2);
-                // console.log("CA 3:", ca3);
-                // console.log("CA 4:", ca4);
+               
 
                 if (res.ok && date) {
                     const boxRooms = document.querySelector('.box-rooms');

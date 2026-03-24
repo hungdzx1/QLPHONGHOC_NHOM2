@@ -71,11 +71,8 @@ cho_duyetBtn.addEventListener('click', async (e) => {
 
         const results = await res.json();
 
-        console.log("Results: ", results);
-
         const rooms = results.data;
 
-        console.log("Rooms: ", rooms);
 
         if (rooms && Array.isArray(rooms)) {
             const roomsContainer = document.querySelector('.box-rooms');

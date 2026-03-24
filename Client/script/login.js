@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Quên mật khẩu (demo)
   forgotLink.addEventListener("click", (e) => {
     e.preventDefault();
-    alert("Tính năng quên mật khẩu chưa được triển khai. Vui lòng liên hệ admin.");
+    alert("Để lấy lại mật khẩu vui lòng liên hệ quản trị viên!.");
   });
 
   // Toggle hiển thị mật khẩu

@@ -117,9 +117,28 @@ const updateAccoutById = async (id, password, email, name, role) => {
   );
 };
 
+const checkpass = async (id, pass) => {
+  const { rows } = await pool.query(
+    `SELECT * 
+    FROM account
+    WHERE id = $1 AND password = $2`, [id, pass]
+  );
+
+  return rows[0] ? true : false;
+}
+
+const updatepass = async (id, newpass) => {
+  await pool.query(
+    `UPDATE account
+     SET password = $1
+     WHERE id = $2`,
+    [newpass, id]
+  );
+}
+
 // ================= BOOKINGS =================
 
-const CheckBookingRoom = async (id) => {
+const CheckBookingRoom = async (id, stt) => {
   const { rows } = await pool.query(
     `SELECT 
     bookings.id,
@@ -130,8 +149,8 @@ const CheckBookingRoom = async (id) => {
     rooms.room_type
     FROM bookings
     JOIN rooms ON bookings.room_id = rooms.id
-    WHERE bookings.user_id = $1;`,
-    [id]
+    WHERE bookings.user_id = $1 AND bookings.status = $2;`,
+    [id, stt]
   );
   return rows || null;
 };
@@ -249,12 +268,12 @@ const getStatus4 = async (id, date) => {
 
 module.exports = {
   getAllRooms, getStatus1, getStatus2, getStatus3, getStatus4,
-  creatNewRooms, GetIdRoomByName,
+  creatNewRooms, GetIdRoomByName, 
   checkAccount, ChangeStatus,
   getUserByID,
   getFullAcc,
   getUserByUS,
-  CreateAcc,
+  CreateAcc, checkpass, updatepass,
   getRoomByID,
   UpdateRooms,
   DeleteRoomById,
