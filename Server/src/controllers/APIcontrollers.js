@@ -331,6 +331,8 @@ const ChangePass = async (req, res) => {
     const id = req.session.user.id;
     const { password, new_pass } = req.body;
 
+    // console.log("pass: ", password);
+
     const check = await checkpass(id, password);
 
     if (!check) {

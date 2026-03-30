@@ -14,7 +14,6 @@ const {
 const {
   CheckLogin,
 } = require('../middleware/middle');
-const { checkAccount } = require("../services/CRUD");
 
 
 const router = express.Router();
@@ -62,7 +61,7 @@ const RestAPIs = (app) => {
 
   router.post("/get-status", CheckLogin ,getStatus); 
 
-  router.post("/change-pass", checkAccount, ChangePass);
+  router.post("/change-pass", CheckLogin, ChangePass);
 
   router.post("/logout", CheckLogin ,logout);
 

@@ -114,8 +114,5 @@ document.getElementById('btnLogout').addEventListener('click', async () => {
     }
 });
 
-//change password
-document.getElementById('btnChangePassword').addEventListener('click', async () => {
-    window.location.href = 'change-password.html';
-});
+
 

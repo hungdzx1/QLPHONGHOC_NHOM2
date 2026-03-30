@@ -28,4 +28,7 @@ const Auth = async () => {
 Auth();
 
 
-
+//change password
+document.getElementById('btnChangePassword').addEventListener('click', async () => {
+    window.location.href = 'change-password.html';
+});

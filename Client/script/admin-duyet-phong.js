@@ -135,7 +135,7 @@ da_duyetBtn.addEventListener('click', async (e) => {
                 const date = new Date(room.date).toLocaleDateString("vi-VN");
                 roomElement.innerHTML = `
               <h3>${room.room_name}</h3>
-              <p>Sức chứa: ${room.so_luong} người</p>
+              <p>Người Mượn: ${room.fullname}</p>
               <p>Ca: ${room.ca_hoc}</p>
                 <p>Ngày: ${date} </p>
                 <p>Lý do: ${room.li_do  ?room.li_do : 'Không có lý do'}</p>
